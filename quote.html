@@ -1,0 +1,195 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Random Quote Generator</title>
+    <style>
+        body {
+            font-family: 'Helvetica Neue', Arial, sans-serif;
+            background-color: #f8f9fa;
+            color: #333;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            margin: 0;
+            padding: 20px;
+            line-height: 1.6;
+        }
+        
+        .container {
+            max-width: 600px;
+            width: 100%;
+            text-align: center;
+        }
+        
+        .quote-box {
+            background-color: white;
+            border-radius: 8px;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+            padding: 40px;
+            margin-bottom: 30px;
+            transition: all 0.3s ease;
+        }
+        
+        .quote-text {
+            font-size: 1.5rem;
+            font-weight: 300;
+            margin-bottom: 20px;
+            position: relative;
+        }
+        
+        .quote-text::before,
+        .quote-text::after {
+            content: '"';
+            font-size: 2rem;
+            color: #ddd;
+            position: absolute;
+        }
+        
+        .quote-text::before {
+            top: -10px;
+            left: -25px;
+        }
+        
+        .quote-text::after {
+            bottom: -30px;
+            right: -25px;
+        }
+        
+        .quote-author {
+            font-size: 1.1rem;
+            font-style: italic;
+            color: #666;
+        }
+        
+        .quote-author::before {
+            content: "— ";
+        }
+        
+        .new-quote-btn {
+            background-color: #4a6fa5;
+            color: white;
+            border: none;
+            padding: 12px 24px;
+            border-radius: 4px;
+            font-size: 1rem;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+        
+        .new-quote-btn:hover {
+            background-color: #3a5a8f;
+        }
+        
+        .footer {
+            margin-top: 30px;
+            color: #999;
+            font-size: 0.9rem;
+        }
+        
+        @media (max-width: 600px) {
+            .quote-text {
+                font-size: 1.2rem;
+            }
+            
+            .quote-box {
+                padding: 30px 20px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="quote-box">
+            <div class="quote-text" id="quote">Click the button below to get a quote</div>
+            <div class="quote-author" id="author"></div>
+        </div>
+        
+        <button class="new-quote-btn" id="new-quote">New Quote</button>
+        
+        <div class="footer">
+            Random Quote Generator
+        </div>
+    </div>
+
+    <script>
+        const quotes = [
+            {
+                text: "The only way to do great work is to love what you do.",
+                author: "Steve Jobs"
+            },
+            {
+                text: "Life is what happens when you're busy making other plans.",
+                author: "John Lennon"
+            },
+            {
+                text: "The journey of a thousand miles begins with one step.",
+                author: "Lao Tzu"
+            },
+            {
+                text: "That which does not kill us makes us stronger.",
+                author: "Friedrich Nietzsche"
+            },
+            {
+                text: "Be the change that you wish to see in the world.",
+                author: "Mahatma Gandhi"
+            },
+            {
+                text: "In three words I can sum up everything I've learned about life: it goes on.",
+                author: "Robert Frost"
+            },
+            {
+                text: "If you tell the truth, you don't have to remember anything.",
+                author: "Mark Twain"
+            },
+            {
+                text: "To live is the rarest thing in the world. Most people exist, that is all.",
+                author: "Oscar Wilde"
+            },
+            {
+                text: "Without music, life would be a mistake.",
+                author: "Friedrich Nietzsche"
+            },
+            {
+                text: "We accept the love we think we deserve.",
+                author: "Stephen Chbosky"
+            }
+        ];
+        
+        const quoteElement = document.getElementById('quote');
+        const authorElement = document.getElementById('author');
+        const newQuoteButton = document.getElementById('new-quote');
+        
+        function getRandomQuote() {
+            const randomIndex = Math.floor(Math.random() * quotes.length);
+            return quotes[randomIndex];
+        }
+        
+
+        function displayNewQuote() {
+            const quote = getRandomQuote();
+            quoteElement.textContent = quote.text;
+            authorElement.textContent = quote.author;
+            
+            const quoteBox = document.querySelector('.quote-box');
+            quoteBox.style.opacity = 0;
+            setTimeout(() => {
+                quoteBox.style.opacity = 1;
+            }, 300);
+        }
+        
+        newQuoteButton.addEventListener('click', displayNewQuote);
+        
+        window.addEventListener('load', displayNewQuote);
+        
+        document.addEventListener('keydown', (e) => {
+            if (e.code === 'Space') {
+                e.preventDefault();
+                displayNewQuote();
+            }
+        });
+    </script>
+</body>
+</html>
